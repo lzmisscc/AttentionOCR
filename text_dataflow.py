@@ -162,7 +162,7 @@ def get_roidb(dataset_name):
     """
     Load generated numpy dataset for tensorpack dataflow.
     """
-    dataset = np.load(dataset_name)[()]
+    dataset = np.load(dataset_name, allow_pickle=True)[()]
     filenames, labels, masks, bboxes, points = dataset["filenames"], dataset["labels"], dataset["masks"], dataset["bboxes"], dataset["points"]
 
     roidb = []
@@ -225,7 +225,8 @@ def get_batch_train_dataflow(roidbs, batch_size):
     return ds
 
 if __name__ == "__main__":
-    lsvt = LSVT()
+    from dataset import LSVT_V2
+    lsvt = LSVT_V2()
     lsvt.load_data() 
     print(len(lsvt.filenames))
 
@@ -246,6 +247,8 @@ if __name__ == "__main__":
     ds = PrintData(ds, 10)
     # TestDataSpeed(ds, 50000).start()
     for k in ds:
-        print(k['label'], k['mask'], k['normalized_bbox'])
-        plt.imshow(k['image'])
-        plt.show()
+        # print(k['label'], k['mask'], k['normalized_bbox'])
+        print(k['label'])
+        print(k['image'].shape)
+        # plt.imshow(k['image'])
+        # plt.show()
