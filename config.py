@@ -4,7 +4,7 @@ import os
 from parse_dict import get_dict
 
 # base dir for multiple text datasets
-base_dir = '/opt/data/nfs/zhangjinjin/data/text/'
+base_dir = 'pubtabnet/train'
 
 # font path for visualization
 font_path = './fonts/cn/SourceHanSans-Normal.ttf'
@@ -32,17 +32,17 @@ starting_epoch = 1
 pretrain_path = './pretrain/inception_v4.ckpt'
 
 # label dict for text recognition
-label_dict = get_dict()
+label_dict = get_dict(path='label_dict/index_dict')
 reverse_label_dict = dict((v,k) for k,v in label_dict.items())
 
 # gpu lists
-gpus = [6, 7, 8, 9]
+gpus = [5, ]
 
 num_gpus = len(gpus)
 num_classes = len(label_dict)
 
 # max sequence length without EOS 
-seq_len = 32
+seq_len = 100
 
 # embedding size
 wemb_size = 256
@@ -54,10 +54,10 @@ lstm_size = 512
 crop_min_size = 224
 
 # input image size
-image_size = 256
+image_size = 300
 
 # max random image offset for data augment
-offset = 16
+offset = 3
 
 # CNN endpoint stride
 stride = 8
@@ -67,7 +67,7 @@ TRAIN_SHORT_EDGE_SIZE = 8
 MAX_SIZE = image_size - 32
 
 # training batch size
-batch_size = 10 #12
+batch_size = 6 #12
 
 # steps per training epoch in tensorpack
 steps_per_epoch = 500
@@ -88,4 +88,4 @@ min_lr = learning_rate / 100
 warmup_steps = 1000
 
 # thread for multi-thread data loading  
-num_threads = 16
+num_threads = 3
